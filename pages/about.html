@@ -2,31 +2,54 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Про мене</title>
+
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/responsive.css">
 </head>
+
 <body>
 
-<nav>
-  <a href="../index.html">Головна</a>
-  <a href="./about.html">Про мене</a>
-  <a href="./contact.html">Контакти</a>
-</nav>
+<header class="site-header">
+  <nav>
+    <a href="../index.html">Головна</a>
+    <a href="about.html" class="active">Про мене</a>
+    <a href="contact.html">Контакти</a>
+  </nav>
+</header>
 
-<h1>Про мене</h1>
+<main class="container">
 
-<p>Я студент і вивчаю веб-розробку.</p>
+  <h1>Про мене</h1>
 
-<h2>Моє відео</h2>
-<video controls width="300">
-  <source src="../assets/media/demo.mp4" type="video/mp4">
-  Ваш браузер не підтримує відео
-</video>
+  <section class="card">
+    <p>Я студент і вивчаю веб-розробку.</p>
+  </section>
 
-<h2>Моє аудіо</h2>
-<audio controls>
-  <source src="../assets/media/demo.mp3" type="audio/mpeg">
-  Ваш браузер не підтримує аудіо
-</audio>
+  <section class="card two-column">
+
+    <div>
+      <h2>Моє відео</h2>
+      <video controls>
+        <source src="../assets/media/demo.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div>
+      <h2>Моє аудіо</h2>
+      <audio controls>
+        <source src="../assets/media/demo.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2026 Лещенко Дмитро</p>
+</footer>
 
 </body>
 </html>

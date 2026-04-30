@@ -2,55 +2,55 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Контакти</title>
+
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/responsive.css">
 </head>
+
 <body>
 
-<nav>
-  <a href="../index.html">Головна</a>
-  <a href="./about.html">Про мене</a>
-  <a href="./contact.html">Контакти</a>
-</nav>
+<header class="site-header">
+  <nav>
+    <a href="../index.html">Головна</a>
+    <a href="about.html">Про мене</a>
+    <a href="contact.html" class="active">Контакти</a>
+  </nav>
+</header>
 
-<h1>Контакти</h1>
+<main class="container">
 
-<form>
+  <h1>Контакти</h1>
 
-  <label>Ім’я:</label>
-  <input type="text" required>
+  <section class="card">
+    <form>
 
-  <br><br>
+      <div class="form-group">
+        <label for="name">Ім’я:</label>
+        <input id="name" type="text" required>
+      </div>
 
-  <label>Email:</label>
-  <input type="email" required>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input id="email" type="email" required>
+      </div>
 
-  <br><br>
+      <div class="form-group">
+        <label for="phone">Телефон:</label>
+        <input id="phone" type="tel">
+      </div>
 
-  <label>Телефон:</label>
-  <input type="tel">
+      <button type="submit">Надіслати</button>
 
-  <br><br>
+    </form>
+  </section>
 
-  <p>Спосіб зв’язку:</p>
-  <label><input type="radio" name="contact"> Email</label>
-  <label><input type="radio" name="contact"> Телефон</label>
+</main>
 
-  <br><br>
-
-  <textarea placeholder="Повідомлення"></textarea>
-
-  <br><br>
-
-  <label>
-    <input type="checkbox" required>
-    Погоджуюсь
-  </label>
-
-  <br><br>
-
-  <button type="submit">Надіслати</button>
-
-</form>
+<footer>
+  <p>© 2026 Лещенко Дмитро</p>
+</footer>
 
 </body>
 </html>
