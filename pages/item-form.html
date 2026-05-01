@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Додати елемент</title>
+  <link rel="stylesheet" href="../styles/style.css">
+</head>
+
+<body>
+
+  <header class="site-header">
+  <nav>
+    <a href="../index.html">Головна</a>
+    <a href="about.html">Про мене</a>
+    <a href="contact.html">Контакти</a>
+    <a href="catalog.html">Каталог</a>
+    <a href="item-form.html" class="active">Створити</a>
+    <button class="theme-toggle" type="button">Change theme</button>
+  </nav>
+</header>
+
+<main class="container">
+  <h1 id="form-title">Додати елемент</h1>
+
+  <form id="item-form">
+
+    <input name="title" placeholder="Назва" required>
+    <input name="category" placeholder="Категорія" required>
+    <input name="price" type="number" placeholder="Ціна" required>
+    <textarea name="description" placeholder="Опис"></textarea>
+
+    <button type="submit" id="submit-btn">Створити</button>
+    
+    <p id="form-message" style="margin-top:10px; font-weight:600;"></p>
+
+  </form>
+
+</main>
+
+<script src="../js/main.js" defer></script>
+<script type="module" src="../js/form.js"></script>
+</body>
+</html>

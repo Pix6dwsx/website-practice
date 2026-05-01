@@ -1,3 +1,5 @@
+import { getItems, deleteItem } from "./api.js";
+
 let visibleCount = 4;
 let allItems = [];
 
@@ -17,12 +19,9 @@ async function init() {
   try {
     container.textContent = "Завантаження...";
 
-    const response = await fetch("../data/items.json");
-    if (!response.ok) throw new Error();
+    allItems = await getItems();
 
-    allItems = await response.json();
-
-    const getFilteredItems = () => {
+    function getFilteredItems() {
       let result = [...allItems];
 
       const searchValue = searchInput.value.toLowerCase();
@@ -45,9 +44,9 @@ async function init() {
       }
 
       return result;
-    };
+    }
 
-    const updateUI = () => {
+    function updateUI() {
       const result = getFilteredItems();
 
       visibleCount = 4;
@@ -59,7 +58,7 @@ async function init() {
       }
 
       renderCards(result);
-    };
+    }
 
     searchInput.addEventListener("input", updateUI);
     categorySelect.addEventListener("change", updateUI);
@@ -74,10 +73,12 @@ async function init() {
 
     updateUI();
 
-  } catch {
+  } catch (error) {
+    console.error(error);
     container.textContent = "Помилка завантаження даних";
   }
 }
+
 
 function getFavorites() {
   return JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]");
@@ -85,12 +86,14 @@ function getFavorites() {
 
 function toggleFavorite(id) {
   const favorites = getFavorites();
+
   const updated = favorites.includes(id)
     ? favorites.filter(f => f !== id)
     : [...favorites, id];
 
   localStorage.setItem(FAVORITES_KEY, JSON.stringify(updated));
 }
+
 
 function renderCards(items) {
   const container = document.querySelector("[data-catalog]");
@@ -110,28 +113,76 @@ function renderCards(items) {
       <p>${item.description}</p>
       <p><strong>Категорія:</strong> ${item.category}</p>
       <p><strong>Ціна:</strong> $${item.price}</p>
+
       <button class="details-btn" data-id="${item.id}">Деталі</button>
+
       <button class="fav-btn" data-id="${item.id}">
         ${isFav ? "❤️ В обраному" : "🤍 В обране"}
+      </button>
+
+      <button class="edit-btn" data-id="${item.id}">
+        Редагувати
+      </button>
+
+      <button class="delete-btn" data-id="${item.id}">
+        Видалити
       </button>
     `;
 
     container.appendChild(card);
   });
 
+ 
   document.querySelectorAll(".fav-btn").forEach(btn => {
     btn.addEventListener("click", () => {
-      toggleFavorite(Number(btn.dataset.id));
+      const id = btn.dataset.id;
+      toggleFavorite(id);
+
+      // перерендер с текущими данными
       renderCards(items);
+    });
+  });
+
+  
+  document.querySelectorAll(".delete-btn").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const id = btn.dataset.id;
+
+      const confirmDelete = confirm("Ви впевнені?");
+      if (!confirmDelete) return;
+
+      try {
+        await deleteItem(id);
+
+        // обновляем глобальный список
+        allItems = await getItems();
+
+       
+        renderCards(allItems);
+
+      } catch (error) {
+        console.error(error);
+        alert("Помилка видалення");
+      }
+    });
+  });
+
+  
+  document.querySelectorAll(".edit-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      window.location.href = `item-form.html?id=${id}`;
     });
   });
 
   initModal(items);
 
   if (loadMoreBtn) {
-    loadMoreBtn.style.display = visibleCount >= items.length ? "none" : "inline-block";
+    loadMoreBtn.style.display =
+      visibleCount >= items.length ? "none" : "inline-block";
   }
 }
+
 
 function initModal(items) {
   const modal = document.getElementById("modal");
@@ -142,14 +193,13 @@ function initModal(items) {
 
   document.querySelectorAll(".details-btn").forEach(btn => {
     btn.addEventListener("click", () => {
-      const item = items.find(i => i.id === Number(btn.dataset.id));
+      const item = items.find(i => i.id == btn.dataset.id);
 
       modalBody.innerHTML = `
         <h2>${item.title}</h2>
         <p>${item.description}</p>
         <p><strong>Категорія:</strong> ${item.category}</p>
         <p><strong>Ціна:</strong> $${item.price}</p>
-        <p><strong>Рейтинг:</strong> ${item.rating}</p>
       `;
 
       modal.classList.remove("hidden");
