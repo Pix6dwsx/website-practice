@@ -10,6 +10,14 @@
   --radius-md: 12px;
 }
 
+/* 🌙 DARK THEME */
+body.theme-dark {
+  --color-bg: #0f172a;
+  --color-surface: #1e293b;
+  --color-text: #ffffff;
+  --color-border: #334155;
+}
+
 /* RESET */
 *,
 *::before,
@@ -71,16 +79,9 @@ nav a.active {
 }
 
 /* TYPOGRAPHY */
-h1 {
-  font-size: 36px;
-  margin-bottom: 20px;
-  color: #1d3557;
-}
-
+h1,
 h2 {
-  font-size: 24px;
-  margin-top: 30px;
-  color: #1d3557;
+  color: var(--color-text);
 }
 
 p {
@@ -217,4 +218,109 @@ footer {
   .container {
     padding: 20px;
   }
+}
+
+/* BACK TO TOP */
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+
+  width: 50px;
+  height: 50px;
+
+  background: white; /* белый фон */
+  color: var(--color-primary); /* синяя стрелка */
+
+  border: none;
+  border-radius: 50%;
+
+  font-size: 20px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  transition: 0.3s;
+  z-index: 1000;
+}
+
+.back-to-top.show {
+  display: flex;
+}
+
+.back-to-top:hover {
+  transform: translateY(-3px) scale(1.1);
+  background: var(--color-primary);
+  color: white;
+}
+
+/* DARK THEME */
+body.theme-dark {
+  --color-bg: #0f172a;
+  --color-surface: #1e293b;
+  --color-text: #e2e8f0;
+  --color-border: #334155;
+}
+
+/* чтобы сразу применялось */
+body.theme-dark {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* карточки и контейнеры */
+body.theme-dark .container,
+body.theme-dark .card {
+  background: var(--color-surface);
+}
+
+/* таблица */
+body.theme-dark tr:nth-child(even) {
+  background: #1e293b;
+}
+
+body.theme-dark input,
+body.theme-dark textarea,
+body.theme-dark select {
+  background: #0f172a;
+  color: white;
+  border-color: #334155;
+}
+
+body.theme-dark .card {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+body,
+.card,
+.container,
+input,
+button {
+  transition: all 0.3s ease;
+}
+
+.accordion-header {
+  width: 100%;
+  padding: 12px;
+  text-align: left;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+
+.accordion-content {
+  display: none;
+  padding: 10px;
+}
+
+.accordion-item.active .accordion-content {
+  display: block;
 }
