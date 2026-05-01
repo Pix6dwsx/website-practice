@@ -1,4 +1,4 @@
-# Lab03 JavaScript Mini Website
+# Website Practice (Lab03 JavaScript)
 
 ## 📌 Description
 
